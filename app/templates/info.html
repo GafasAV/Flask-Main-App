@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block title %}
+    {{ user }}
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block info %}
+
+    <div class="alert alert-info" role="alert">
+
+        <form class="form-inline" method="post">
+            {{ uform.hidden_tag() }}
+            {{ uform.currencys(class_ = "btn btn-info") }}
+            {{ uform.online(class_ = "btn btn-info") }}
+            <div class="form-group">
+                <label><strong>Search :</strong></label>
+                {{ uform.curr_name(class_ = "form-control") }}
+                {{ uform.get_history(class_ = "btn btn-info") }}
+            </div>
+            <div class="form-group">
+                {{ uform.choice(class_ = "form-control") }}
+                {{ uform.compare(class_ = "btn btn-info") }}
+            </div>
+            <div class="form-group">
+                <label><strong>You API_KEY:</strong></label>
+                <label><strong>{{ api }}</strong></label>
+            </div>
+
+            {% block table %}
+            {% endblock %}
+        </form>
+    
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert" align="center">
+                        <h5>{{ message }}</h5>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}

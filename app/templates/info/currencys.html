@@ -1,0 +1,44 @@
+{% extends "info.html" %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block table %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert" align="center">
+                        <h5>{{ message }}</h5>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if data %}
+        <table class="table table-inverse">
+        <thead>
+            <tr>
+                <th>Check for compare</th>
+                <th>Name</th>
+                <th>Symbol</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for el in data %}
+            <tr>
+                <td><input type="checkbox" name="check" value="{{ el[0] }}"></td>
+                <td><a href="{{ url_for('show_history', user=user, currency=el[0]) }}">{{ el[0] }}</a></td>
+                <td><a href="{{ url_for('show_history', user=user, currency=el[1]) }}">{{ el[1] }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-danger">
+            <strong>ERROR !</strong> No Data to show.
+        </div>
+    {% endif %}
+{% endblock %}

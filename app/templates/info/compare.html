@@ -1,0 +1,37 @@
+{% extends "info.html" %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block table %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert" align="center">
+                        <h5>{{ message }}</h5>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if d_info %}
+        <h3><strong>Generalized info for all Period by: {{ choice }}</strong></h3>
+        {{ d_info|safe }}
+    {% else %}
+        <div class="alert alert-danger">
+            <strong>ERROR !</strong> No Data to show.
+        </div>
+    {% endif %}
+
+    {% if data %}
+        <h3><strong>Compare by: {{ choice }}</strong></h3>
+        {{ data|safe }}
+    {% else %}
+        <div class="alert alert-danger">
+            <strong>ERROR !</strong> No Data to Compare.
+        </div>
+    {% endif %}
+{% endblock %}
